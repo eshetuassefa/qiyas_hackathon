@@ -1,0 +1,27 @@
+column_name,data_type,source_file,description
+plot_id,str,crop_yield_train.csv,Original survey feature
+region,str,crop_yield_train.csv,Original survey feature
+crop_type,str,crop_yield_train.csv,Original survey feature
+survey_year,int64,crop_yield_train.csv,Original survey feature
+planting_month,str,crop_yield_train.csv,Original survey feature
+altitude_m,float64,crop_yield_train.csv,Original survey feature
+rainfall_mm_season,float64,crop_yield_train.csv,Original survey feature
+farm_size_ha,float64,crop_yield_train.csv,Original survey feature
+fertilizer_kg_per_ha,float64,crop_yield_train.csv,Original survey feature
+improved_seed_used,int64,crop_yield_train.csv,Original survey feature
+pest_disease_flag,int64,crop_yield_train.csv,Original survey feature
+soil_quality_index,float64,crop_yield_train.csv,Original survey feature
+labor_days_per_ha,float64,crop_yield_train.csv,Original survey feature
+distance_to_market_km,float64,crop_yield_train.csv,Original survey feature
+yield_tons_per_ha,float64,crop_yield_train.csv,Original survey feature
+season_avg_temp,float64,regional_weather.csv (aggregated),Growing-season weather aggregate
+season_total_rainfall,float64,regional_weather.csv (aggregated),Growing-season weather aggregate
+season_extreme_heat_days,int64,regional_weather.csv (aggregated),Growing-season weather aggregate
+price_birr_per_quintal,float64,market_prices.csv,Market price (analysis & demo only – NOT a model feature)
+temp_deviation,float64,engineered,See A6 feature table
+fertilizer_x_seed,float64,engineered,See A6 feature table
+labor_per_ha,float64,engineered,See A6 feature table
+fertilizer_per_ha_soil,float64,engineered,See A6 feature table
+planting_month_num,int32,engineered,See A6 feature table
+plant_month_sin,float64,engineered,See A6 feature table
+plant_month_cos,float64,engineered,See A6 feature table

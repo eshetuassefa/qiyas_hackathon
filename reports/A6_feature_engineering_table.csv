@@ -1,0 +1,9 @@
+name,formula,source,why
+season_avg_temp,mean(avg_temp_c) over planting+3 months,regional_weather,Temperature drives crop development rate
+season_total_rainfall,sum(monthly_rainfall_mm) over window,regional_weather,Water availability is primary yield driver
+season_extreme_heat_days,sum(extreme_heat_days) over window,regional_weather,Heat stress reduces grain filling
+temp_deviation,season_avg_temp - region 4-yr mean,derived,Anomaly relative to local climate
+fertilizer_x_seed,fertilizer_kg_per_ha * improved_seed_used,interaction,Improved seed responds better to fertilizer
+labor_per_ha,labor_days_per_ha / farm_size_ha,ratio,Labor intensity may proxy management quality
+planting_month_num,numeric month 1-12,planting_month,Timing affects yield via climate window
+plant_month_sin/cos,sin/cos(2π * month/12),planting_month,Cyclical encoding of seasonality

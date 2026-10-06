@@ -1,0 +1,32 @@
+# Deliverable A — Data Cleaning & Integration Pipeline
+
+## A1 Cleaning Log
+
+| file | column | issue_type | affected_count | affected_pct | fix_applied | rationale |
+|------|--------|------------|----------------|--------------|-------------|-----------|
+| crop_yield_train.csv | rainfall_mm_season | Missing Values (NaN) | 449 | 2.98 | Imputed with training-set median (Rule 6) | Preserve all rows; statistics learned from train only to avoid leakage. |
+| crop_yield_train.csv | fertilizer_kg_per_ha | Missing Values (NaN) | 748 | 4.96 | Imputed with training-set median (Rule 6) | Preserve all rows; statistics learned from train only to avoid leakage. |
+| crop_yield_train.csv | soil_quality_index | Missing Values (NaN) | 608 | 4.03 | Imputed with training-set median (Rule 6) | Preserve all rows; statistics learned from train only to avoid leakage. |
+| crop_yield_train.csv | region + crop_type | Inconsistent casing / spelling / whitespace | 15090 | 100.0 | Standardized via clean_region / clean_crop maps | Required for correct joins; all tables now share identical label sets. |
+| crop_yield_leaderboard_test.csv | rainfall_mm_season | Missing Values (NaN) | 125 | 3.33 | Imputed with training-set median (Rule 6) | Preserve all rows; statistics learned from train only to avoid leakage. |
+| crop_yield_leaderboard_test.csv | fertilizer_kg_per_ha | Missing Values (NaN) | 189 | 5.04 | Imputed with training-set median (Rule 6) | Preserve all rows; statistics learned from train only to avoid leakage. |
+| crop_yield_leaderboard_test.csv | soil_quality_index | Missing Values (NaN) | 125 | 3.33 | Imputed with training-set median (Rule 6) | Preserve all rows; statistics learned from train only to avoid leakage. |
+| crop_yield_leaderboard_test.csv | region + crop_type | Inconsistent casing / spelling / whitespace | 3750 | 100.0 | Standardized via clean_region / clean_crop maps | Required for correct joins; all tables now share identical label sets. |
+| regional_weather.csv | All | Duplicate rows | 1 | 0.43 | Dropped duplicates | Prevent duplicate matches in growing-season join. |
+| regional_weather.csv | avg_temp_c | Missing Values | 1 | 0.43 | Left as NaN then aggregated with mean | Sparse missingness; aggregation tolerates partial windows. |
+| regional_weather.csv | monthly_rainfall_mm | Missing Values | 2 | 0.86 | Left as NaN then aggregated with sum | Same rationale as temperature. |
+| regional_weather.csv | region | Abbreviations (SOM, AMH, ORO, TIG, SNNP) | 232 | 100.0 | Mapped to full standardized names | Required for join keys to match plot table. |
+| market_prices.csv | price_birr_per_quintal | Missing Values | 4 | 4.0 | Imputed with median of price table | Avoid losing historical price records needed for revenue calculations and demo. |
+| market_prices.csv | price_birr_per_quintal | Suspected unit error (too low) | 4 | 4.0 | Flagged; median imputation used | A few rows appear recorded in wrong unit (birr/kg vs birr/quintal). |
+| market_prices.csv | region + crop_type | Inconsistent casing / whitespace | 100 | 100.0 | Standardized via clean_region / clean_crop | Required for correct many-to-one join. |
+
+## A2 Key Standardization Proof
+
+**Before cleaning** – regions and crops had mixed casing, trailing spaces and abbreviations (ORO, AMH, SOM, TIG, SNNP, Tef, etc.).
+
+**After cleaning** – every table uses exactly the same labels:
+
+- Regions: `Oromia`, `Amhara`, `SNNPR`, `Somali`, `Tigray`
+- Crops: `teff`, `maize`, `wheat`, `sorghum`, `barley`
+
+## A3 Join Map & Growing-Season Rule
