@@ -19,7 +19,7 @@ source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### requirements.txt
+### requirements
 ```
 pandas>=2.0
 numpy>=1.24
